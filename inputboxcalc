@@ -1,0 +1,6 @@
+InputBox, Calc
+FileDelete, calc_temp.ahk
+FileAppend, ClipBoard := Round(%Calc%), calc_temp.ahk
+RunWait, calc_temp.ahk
+calc_temp.Close()
+FileDelete, calc_temp.ahk
