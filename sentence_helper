@@ -1,0 +1,50 @@
+Submenu1 := {"1-hotmail"    : "_hotmail"
+            ,"2-gmail"	    : "_gmail"}
+
+Submenu2 := {"3-protonmail" : "_protonmail"}
+
+For k, menuName in ["Submenu1", "Submenu2"]
+	For menuItem, string in %menuName%
+  		Menu, %menuName%, Add, %menuItem%, MenuHandler
+
+Menu, MyMenu, Add, My Submenu1, :Submenu1
+Menu, MyMenu, Add, My Submenu2, :Submenu2
+;Menu, MyMenu, Add, My Submenu, :Submenu3
+;Menu, MyMenu, Add, My Submenu, :Submenu4
+;Menu, MyMenu, Add, My Submenu, :Submenu5
+
+
+MenuHandler:
+ReadSentence(%A_ThisMenu%[A_ThisMenuItem])
+Return
+
+
+ReadSentence(trigger)
+{
+	input_file = sentences.txt
+
+	Loop, read, %input_file%
+	{
+		if InStr(A_LoopReadLine, trigger)
+		{
+			line_no := A_Index + 1
+			break
+		}
+	}
+	; Create initial first line
+	FileReadLine, line, %input_file%, %line_no%
+	output_var := line
+	; Add additional lines (if applicable)
+	Loop 
+	{
+		line_no++
+		FileReadLine, line, %input_var%, %line_no%
+		if (line == "break")
+			break
+		else
+		output_var = %output_var%`n%line%
+	}
+	Clipboard := output_var
+}
+
+#z::Menu, MyMenu, Show
