@@ -31,20 +31,20 @@ ReadSentence(trigger)
 			break
 		}
 	}
-	; Create initial first line
 	FileReadLine, line, %input_file%, %line_no%
-	output_var := line
-	; Add additional lines (if applicable)
-	Loop 
-	{
-		line_no++
-		FileReadLine, line, %input_var%, %line_no%
-		if (line == "break")
-			break
-		else
-		output_var = %output_var%`n%line%
-	}
-	Clipboard := output_var
+
+	Clipboard := ParseSentence(line)
+}
+
+ParseSentence(string)
+{
+	replace := {"\n":"`r`n" 
+	           ,"\t":"`t"}
+
+	for x, y in replace
+		string := StrReplace(string, x, y)
+
+	return string
 }
 
 #z::Menu, MyMenu, Show
