@@ -1,3 +1,5 @@
+Gui, Font, s12, Segoe UI
+
 Gui, Add, Text, ,Number 1: ; Label for the first input field
 Gui, Add, Edit, vNum1 w120, ; First input field for the number
 Gui, Add, Text, ,Number 2: ; Label for the first input field
