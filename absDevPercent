@@ -1,0 +1,23 @@
+Gui, Add, Text, ,Number 1: ; Label for the first input field
+Gui, Add, Edit, vNum1 w120, ; First input field for the number
+Gui, Add, Text, ,Number 2: ; Label for the first input field
+Gui, Add, Edit, vNum2 w120, ; Second input field for the number
+Gui, Add, Button, Default gCalculate w120 h30, Calculate ; Calculate button with gCalculate subroutine
+Gui, Add, Text, vOutput w200, Result: ; Output field where the result will be displayed
+
+; Show the GUI
+Gui, Show, w150, h200, Absolute Deviation Calculator
+return
+
+Calculate:
+; Retrieve the user input
+Gui, Submit, NoHide
+; Calculate the absolute deviation in percent
+absDevPercent := ((Abs(Num1 - Num2)) / ((Num1 + Num2) / 2)) * 100
+formattedResult := Format("{:.2f}", absDevPercent)
+; Display the result in the output field
+GuiControl,, Output, Result: %formattedResult%`%
+return
+
+GuiClose:
+ExitApp
